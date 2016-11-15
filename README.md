@@ -9,7 +9,7 @@ moment-feiertage is a [Moment.js](http://momentjs.com/) plugin to determine if a
 ```javascript
 var nowIsHoliday = moment().isHoliday();
 var someDateIsHoliday = moment('2019-12-25').isHoliday();
-var isHolidayInBavaria = momemt('2017-08-15').is Holiday('BY');
+var isHolidayInBavaria = momemt('2017-08-15').isHoliday('BY');
 
 // state codes: 
 // BW = Baden-Württemberg
