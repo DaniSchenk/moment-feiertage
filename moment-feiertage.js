@@ -51,7 +51,7 @@
   				'state': []
   			},
   			'Heilige Drei Könige': {
-  				'date': moment(year + '-01-01'),
+  				'date': moment(year + '-01-06'),
   				'state': ['BW', 'BY', 'ST']
   			},
   			'Ostersonntag': {
