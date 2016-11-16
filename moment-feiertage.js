@@ -17,7 +17,6 @@
 
 
     moment.fn.isHoliday = function(state) {
-    	console.log(state);
     	var year = this.year();
     	// fist get easter date
     	var easter = moment(calculateEasterDate(year)).format();
