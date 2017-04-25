@@ -1,15 +1,15 @@
 {
   "name": "moment-feiertage",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Moment.js Plugin for german holidays; check if a given Date is a german holiday",
   "main": "moment-feiertage.js",
   "homepage": "https://github.com/DevbrosDevelopment/moment-feiertage",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository" : {
-    "type" : "git",
-    "url" : "https://github.com/DevbrosDevelopment/moment-feiertage.git"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DevbrosDevelopment/moment-feiertage.git"
   },
   "bugs": {
     "url": "https://github.com/DevbrosDevelopment/moment-feiertage/issues"
