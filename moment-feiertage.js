@@ -21,7 +21,7 @@
     	// fist get easter date
     	var easter = moment(calculateEasterDate(year)).format();
 
-    	// state codes: 
+    	// state codes:
     	// BW = Baden-Württemberg
 			// BY = Bayern
 			// BE = Berlin
@@ -85,7 +85,7 @@
   				'date': moment(year + '-08-15'),
   				'state': ['SL']
   			},
-  			'Tag der deutschten Einheit': {
+  			'Tag der deutschen Einheit': {
   				'date': moment(year + '-10-03'),
   				'state': []
   			},
