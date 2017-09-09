@@ -108,7 +108,12 @@
   			'2. Weihnachtsfeiertag': {
   				'date': moment(year + '-12-26'),
   				'state': []
-  			}
+  			},
+        // Reformationstag is 2017 a german holiday in all states
+        'Reformationstag': {
+          'date': moment('2017-10-31'),
+          'state': []
+        }
     	}
 
     	for(var holiday in holidays) {
