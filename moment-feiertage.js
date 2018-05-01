@@ -91,7 +91,7 @@
   			},
   			'Reformationstag': {
   				'date': moment(year + '-10-31'),
-  				'state': ['BB', 'MV', 'SN', 'ST', 'TH']
+  				'state': ['BB', 'MV', 'SN', 'ST', 'TH', 'SH', 'HH']
   			},
   			'Allerheiligen': {
   				'date': moment(year + '-11-01'),
