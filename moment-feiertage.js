@@ -38,7 +38,6 @@
 		// SH = Schleswig-Holstein
 		// TH = Thüringen
 
-		// Quelle BMI: https://de.wikipedia.org/wiki/Gesetzliche_Feiertage_in_Deutschland
 		var holidays = {
 			'Neujahrstag': {
 				'date': moment(year + '-01-01'),

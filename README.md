@@ -1,19 +1,41 @@
 # moment-feiertage
-moment-feiertage is a [Moment.js](http://momentjs.com/) plugin to determine if a date is a german holiday.
+moment-feiertage is a [Moment.js](http://momentjs.com/) plugin to determine if a date is a german holiday. Holidays are taken from [Wikipedia (de)](https://de.wikipedia.org/wiki/Gesetzliche_Feiertage_in_Deutschland).
 
 ## How to use?
 1. Add moment-feiertage to your package.json by runing `npm install moment-feiertage --save`
-2. `isHoliday()` on any moment object is returning a boolean
-3. ES6: add `import 'moment-feiertage'` after `import moment from 'moment'`
+2. Import moment and moment-feiertage
+```javascript
+// ES6
+import moment from 'moment'
+import 'moment-feiertage'
+
+// node
+const moment = require('moment');
+const { isHoliday } = require('moment-feiertage');
+````
+3. `isHoliday()` on any moment object is returning `false` (boolean) or name of holiday (string)
 
 ## Examples
 ```javascript
-const moment = require('moment');
-const { isHoliday } = require('moment-feiertage');
+/**
+ * isHoliday() checks if moment object is a german holiday in all states.
+ * isHoliday('<state code>') checks if moment object is a german holiday in specific state)
+ * @param {string} input any state code
+ * @returns {number|string} false | name of holiday
+ */
 
 const nowIsHoliday = moment().isHoliday();
 const someDateIsHoliday = moment('2019-12-25').isHoliday();
+// returns '1. Weihnachtsfeiertag' - is holiday in all states
+
+const isHolidayInAllStates = moment('2017-08-15').isHoliday();
+// returns false - is not holiday in all states
+
 const isHolidayInBavaria = moment('2017-08-15').isHoliday('BY');
+// returns false - is not holiday in BY
+
+const isHolidayInSaarland = moment('2017-08-15').isHoliday('SL');
+// returns 'Mariä Himmelfahrt' - is holiday in SL
 
 // state codes:
 // BW = Baden-Württemberg
