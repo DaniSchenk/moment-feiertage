@@ -16,28 +16,13 @@
 	}
 
 	moment.fn.isHoliday = function (state) {
+		// EXCEPTION: 2017 Reformationstag is holiday in all states
+		if (this.isSame(moment('2017-10-31'), 'day')) {
+			return 'Reformationstag';
+		}
+
 		var year = this.year();
-		// fist get easter date
 		var easter = moment(calculateEasterDate(year)).format();
-
-		// state codes:
-		// BW = Baden-Württemberg
-		// BY = Bayern
-		// BE = Berlin
-		// BB = Brandenburg
-		// HB = Bremen
-		// HH = Hamburg
-		// HE = Hessen
-		// MV = Mecklenburg-Vorpommern
-		// NI = Niedersachsen
-		// NW = Nordrhein-Westfalen
-		// RP = Rheinland-Pfalz
-		// SL = Saarland
-		// SN = Sachsen
-		// ST = Sachsen-Anhalt
-		// SH = Schleswig-Holstein
-		// TH = Thüringen
-
 		var holidays = {
 			'Neujahrstag': {
 				'date': moment(year + '-01-01'),
@@ -106,24 +91,16 @@
 			'2. Weihnachtsfeiertag': {
 				'date': moment(year + '-12-26'),
 				'state': []
-			},
-			// Reformationstag is 2017 a german holiday in all states
-			'Reformationstag': {
-				'date': moment('2017-10-31'),
-				'state': []
 			}
 		}
 
 		for (var holiday in holidays) {
-
 			if (this.isSame(holidays[holiday].date, 'day')) {
-				// if states empty -> holiday for every state
 				var states = holidays[holiday].state
-
-				if (states.length === 0) {
+				if (states.length === 0) { // if state empty -> holiday for every state
 					return holiday;
 				} else {
-					// check if it is a holiday in overgiven state
+					// check if it is a holiday in state (param)
 					if (state !== undefined && state !== "" && state.length === 2 && states.indexOf(state) > -1) {
 						return holiday;
 					} else {
