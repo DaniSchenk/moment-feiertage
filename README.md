@@ -4,15 +4,15 @@ moment-feiertage is a [Moment.js](http://momentjs.com/) plugin to determine if a
 ## How to use?
 1. Add moment-feiertage to your package.json by runing `npm install moment-feiertage --save`
 2. Import moment and moment-feiertage
-```javascript
-// ES6
-import moment from 'moment'
-import 'moment-feiertage'
+    ```javascript
+    // ES6
+    import moment from 'moment'
+    import 'moment-feiertage'
 
-// node
-const moment = require('moment');
-const { isHoliday } = require('moment-feiertage');
-````
+    // node
+    const moment = require('moment');
+    const { isHoliday } = require('moment-feiertage');
+    ````
 3. `isHoliday()` on any moment object is returning `false` (boolean) or name of holiday (string)
 
 ## Examples
@@ -21,10 +21,9 @@ const { isHoliday } = require('moment-feiertage');
  * isHoliday() checks if moment object is a german holiday in all states.
  * isHoliday('<state code>') checks if moment object is a german holiday in specific state)
  * @param {string} input any state code
- * @returns {number|string} false | name of holiday
+ * @returns {boolean|string} false | name of holiday
  */
 
-const nowIsHoliday = moment().isHoliday();
 const someDateIsHoliday = moment('2019-12-25').isHoliday();
 // returns '1. Weihnachtsfeiertag' - is holiday in all states
 
