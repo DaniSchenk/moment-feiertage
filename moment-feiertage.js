@@ -115,7 +115,7 @@
 			},
 			'Reformationstag': {
 				'date': moment(year + '-10-31'),
-				'state': ['BB', 'BH', 'HH', 'MV', 'NI', 'SN', 'ST', 'SH', 'TH']
+				'state': ['BB', 'MV', 'SN', 'ST', 'TH']
 			},
 			'Allerheiligen': {
 				'date': moment(year + '-11-01'),
@@ -133,6 +133,11 @@
 				'date': moment(year + '-12-26'),
 				'state': []
 			}
+		}
+
+		if (year > 2017) {
+			// since 2018 HB, HH, NI, SH celebrate 'Reformationstag' as well
+			holidays['Reformationstag']['state'] = ['BB', 'HB', 'HH', 'MV', 'NI', 'SN', 'ST', 'SH', 'TH'];
 		}
 
 		for (var holiday in holidays) {
