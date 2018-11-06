@@ -15,13 +15,54 @@
 		throw Error("Can't find moment");
 	}
 
-	moment.fn.isHoliday = function (state) {
+	moment.fn.isHoliday = function (_states) {
+		// call backwords compatible function
+		if (typeof _states === 'string' || _states == null) {
+			// call backwards compatible function
+			return isHoliday106(this, _states);
+
+		}
+
+		// return Object if argument contains an Array
+		if (_states instanceof Array) {
+			var allStates = ['BW', 'BY', 'BE', 'BB', 'HB', 'HH', 'HE', 'MV', 'NI', 'NW', 'RP', 'SL', 'SN', 'ST', 'SH', 'TH'];
+			var testStates = prepareArray(_states);
+			var result = {
+				allStates: false,
+				holidayName: '',
+				holidayStates: [],
+				testedStates: testStates
+			};
+
+			// check in all states if no states passed
+			if (testStates.length < 1) {
+				testStates = allStates;
+			}
+			// loop tested states and validate holiday
+			for (i = 0; i < testStates.length; i++) {
+				var holiday = isHoliday106(this, testStates[i]);
+				if (holiday) {
+					// add validated states to result object
+					result.holidayName = holiday;
+					result.holidayStates.push(testStates[i]);
+				}
+			}
+			// set allStates value
+			if (isHoliday106(this)) {
+				result.allStates = true;
+			}
+			result.testedStates = testStates;
+			return result;
+		}
+	}
+
+	isHoliday106 = function (momentObj, state) {
 		// EXCEPTION: 2017 Reformationstag is holiday in all states
-		if (this.isSame(moment('2017-10-31'), 'day')) {
+		if (momentObj.isSame(moment('2017-10-31'), 'day')) {
 			return 'Reformationstag';
 		}
 
-		var year = this.year();
+		var year = momentObj.year();
 		var easter = moment(calculateEasterDate(year)).format();
 		var holidays = {
 			'Neujahrstag': {
@@ -95,13 +136,13 @@
 		}
 
 		for (var holiday in holidays) {
-			if (this.isSame(holidays[holiday].date, 'day')) {
+			if (momentObj.isSame(holidays[holiday].date, 'day')) {
 				var states = holidays[holiday].state
 				if (states.length === 0) { // if state empty -> holiday for every state
 					return holiday;
 				} else {
 					// check if it is a holiday in state (param)
-					if (state !== undefined && state !== "" && state.length === 2 && states.indexOf(state) > -1) {
+					if (state != null && state !== "" && state.length === 2 && states.indexOf(state) > -1) {
 						return holiday;
 					} else {
 						return false;
@@ -109,7 +150,6 @@
 				}
 			}
 		}
-
 		return false;
 	}
 
@@ -139,6 +179,23 @@
 				return day;
 			}
 		}
+	}
+	prepareArray = function (array) {
+		// sort out false values
+		var preparedArray = [];
+		for (i = 0; i < array.length; i++) {
+			if (array[i] != null && array[i] !== '' && array[i].length === 2) {
+				preparedArray.push(array[i]);
+			}
+		}
+		// sort array
+		preparedArray.sort();
+
+		// remove duplicates
+		var uniqueArray = preparedArray.filter(function (item, pos) {
+			return preparedArray.indexOf(item) == pos;
+		});
+		return uniqueArray;
 	}
 	return moment;
 }));
