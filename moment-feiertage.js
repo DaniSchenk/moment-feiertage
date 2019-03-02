@@ -147,6 +147,14 @@
 			};
 		}
 
+		// one time only holiday in Berlin
+		if (year == 2020) {
+			holidays['75. Jahrestag der Befreiung vom Nationalsozialismus und der Beendigung des zweiten Weltkrieges in Europa'] = {
+				'date':  moment(year + '-05-08'),
+				'state': ['BE'],
+			};
+		}
+
 		for (var holiday in holidays) {
 			if (momentObj.isSame(holidays[holiday].date, 'day')) {
 				var states = holidays[holiday].state
