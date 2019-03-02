@@ -1,3 +1,12 @@
 language: node_js
 node_js:
-  - "node"
+- node
+deploy:
+  provider: npm
+  email: schenk@devbros.de
+  api_key:
+    secure: XB0sU1ZCNPVywxMOZhrFoPye/SkZVWtK51EIOPNt9YzOsp9AxE9KsO7ksSnN+nDM5FSlec29c/WqDLIHVWGKrSth/OtEk32lsQQufv4CbmppKdf39+3hXo1V31Mn+SnBpnecGaIiYcszbDBpOCHctSzza4uTVOdt9ULRA6ENvocKcL3e0PTZRGdAwtMpYcq/v0uwX0mO+x3tLuoi/y8zLisiyIWekBUp8Aj4/zcwTe09W5O4GUjfJqI9Ll19XY7AOYpWboz6xFUSG5GeDn5I7ooVqTrR9Uvs9G6tphC0sbVHOBxYdk7/Iz9ZhNW/s7X81TJ98W2krD9t1CtsN/GE9M42d0hRevfvbaClZRSj08UpiIHxgnEr3ollTLo1tw7gYHyMzkWXoab5nekefFq2J6vcMdJyoP22jlUGQZSFWrpMIrawsFibtAPT3VgRirxD9GcHbSzqloPitodoYhju3on1UvwTAKB/8W0fx5ls99elBiFe8iBiL/1bEP3BmvoOvUJUj3aNcMYFGNIEn5L/E868KmP3aFwOU8BH8GTqTTGkPvsGUpE044ReTwemMVWsMZMeXiPHEdE/gtiW6QhyXE+j18+PyWeOufJkFQfWn1LUUrDNsLVpULjugJfI667xs2W4T+Dl6hhUaAjKQpLYKi4rcFale0DiknRMS00Vefc=
+  on:
+    tags: true
+    repo: DaniSchenk/moment-feiertage
+    branch: master
