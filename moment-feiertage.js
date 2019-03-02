@@ -140,6 +140,13 @@
 			holidays['Reformationstag']['state'] = ['BB', 'HB', 'HH', 'MV', 'NI', 'SN', 'ST', 'SH', 'TH'];
 		}
 
+		if (year > 2018) {
+			holidays['Internationaler Frauentag'] = {
+				'date':  moment(year + '-03-08'),
+				'state': ['BE'],
+			};
+		}
+
 		for (var holiday in holidays) {
 			if (momentObj.isSame(holidays[holiday].date, 'day')) {
 				var states = holidays[holiday].state
