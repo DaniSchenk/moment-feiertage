@@ -7,9 +7,9 @@
 		root.moment = factory(root.moment);
 	}
 }(this, function (moment) {
-	var hasModule;
+	'use strict';
 
-	hasModule = (typeof module !== "undefined" && module !== null) && (module.exports != null);
+	var hasModule = (typeof module !== "undefined" && module !== null) && (module.exports != null);
 
 	if (typeof moment === 'undefined') {
 		throw Error("Can't find moment");
@@ -39,7 +39,7 @@
 				testStates = allStates;
 			}
 			// loop tested states and validate holiday
-			for (i = 0; i < testStates.length; i++) {
+			for (var i = 0; i < testStates.length; i++) {
 				var holiday = isHoliday106(this, testStates[i]);
 				if (holiday) {
 					// add validated states to result object
@@ -56,7 +56,7 @@
 		}
 	}
 
-	isHoliday106 = function (momentObj, state) {
+	var isHoliday106 = function (momentObj, state) {
 		// EXCEPTION: 2017 Reformationstag is holiday in all states
 		if (momentObj.isSame(moment('2017-10-31'), 'day')) {
 			return 'Reformationstag';
@@ -173,7 +173,7 @@
 		return false;
 	}
 
-	calculateEasterDate = function (Y) {
+	var calculateEasterDate = function (Y) {
 		var C = Math.floor(Y / 100);
 		var N = Y - 19 * Math.floor(Y / 19);
 		var K = Math.floor((C - 17) / 25);
@@ -188,10 +188,10 @@
 
 		return Y + '-' + padout(M) + '-' + padout(D);
 	}
-	padout = function (number) {
+	var padout = function (number) {
 		return (number < 10) ? '0' + number : number;
 	}
-	calculateBandBDate = function (Y) {
+	var calculateBandBDate = function (Y) {
 		moment(Y + '-11-23') //must be before 23. nov
 		for (var i = 1; i < 8; i++) {
 			var day = moment(Y + '-11-23').subtract(i, 'days');
@@ -200,10 +200,10 @@
 			}
 		}
 	}
-	prepareArray = function (array) {
+	var prepareArray = function (array) {
 		// sort out false values
 		var preparedArray = [];
-		for (i = 0; i < array.length; i++) {
+		for (var i = 0; i < array.length; i++) {
 			if (array[i] != null && array[i] !== '' && array[i].length === 2) {
 				preparedArray.push(array[i]);
 			}
