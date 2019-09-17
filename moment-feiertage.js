@@ -145,6 +145,10 @@
 				'date':  moment(year + '-03-08'),
 				'state': ['BE'],
 			};
+			holidays['Weltkindertag'] = {
+				'date':  moment(year + '-09-20'),
+				'state': ['TH'],
+			};
 		}
 
 		// one time only holiday in Berlin
