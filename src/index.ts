@@ -44,7 +44,7 @@ declare module 'moment' {
     isHoliday: (
       _states?: string | Array<string>
     ) => boolean | string | IsHolidayResult;
-    getHolidaysByYear: (_year: number) => YearWithHolidays;
+    getHolidaysByYear: (_year: number) => Holidays;
   }
 }
 
@@ -61,7 +61,7 @@ const isHoliday = function(
       _moment.year().toString()
     )
   ) {
-    calculateHolidays(_moment.year());
+    allHolidays[_moment.year().toString()] = calculateHolidays(_moment.year());
   }
 
   // call backwards compatible function
@@ -77,8 +77,16 @@ const isHoliday = function(
   return false;
 };
 
-// add isHoliday() to moment
+const getHolidaysByYear = (_year: number): Holidays => {
+  if (!Object.prototype.hasOwnProperty.call(allHolidays, _year.toString())) {
+    return calculateHolidays(_year);
+  }
+  return allHolidays[_year.toString()];
+};
+
+// add custom functions to moment
 (moment as any).fn.isHoliday = isHoliday;
+(moment as any).fn.getHolidaysByYear = getHolidaysByYear;
 
 const _isHoliday106 = (
   _moment: moment.Moment,
@@ -160,35 +168,33 @@ const validateStateCodes = (_states: Array<string>): Array<string> => {
       validCodes.push(s);
     }
   }
-  // sort array
-  validCodes.sort();
   // remove duplicates
   validCodes = validCodes.filter((item, i) => validCodes.indexOf(item) === i);
 
   return validCodes;
 };
 
-const calculateHolidays = (year: number): void => {
+const calculateHolidays = (year: number): Holidays => {
   const easter = calculateEasterDate(year);
   const holidays: Holidays = {
     Neujahrstag: {
       date: moment(`${year}-01-01`),
       state: [],
     },
-    Karfreitag: {
-      date: easter.subtract(2, 'days'),
-      state: [],
-    },
     'Heilige Drei Könige': {
       date: moment(`${year}-01-06`),
       state: ['BW', 'BY', 'ST'],
     },
+    Karfreitag: {
+      date: moment(`${easter}`).subtract(2, 'days'),
+      state: [],
+    },
     Ostersonntag: {
-      date: easter,
+      date: moment(`${easter}`),
       state: ['BB'],
     },
     Ostermontag: {
-      date: easter.add(1, 'days'),
+      date: moment(`${easter}`).add(1, 'days'),
       state: [],
     },
     Maifeiertag: {
@@ -196,19 +202,19 @@ const calculateHolidays = (year: number): void => {
       state: [],
     },
     'Christi Himmelfahrt': {
-      date: easter.add(39, 'days'),
+      date: moment(`${easter}`).add(39, 'days'),
       state: [],
     },
     Pfingstsonntag: {
-      date: easter.add(49, 'days'),
+      date: moment(`${easter}`).add(49, 'days'),
       state: ['BB'],
     },
     Pfingstmontag: {
-      date: easter.add(50, 'days'),
+      date: moment(`${easter}`).add(50, 'days'),
       state: [],
     },
     Fronleichnam: {
-      date: easter.add(60, 'days'),
+      date: moment(`${easter}`).add(60, 'days'),
       state: ['BW', 'BY', 'HE', 'NW', 'RP', 'SL'],
     },
     'Mariä Himmelfahrt': {
@@ -273,38 +279,30 @@ const calculateHolidays = (year: number): void => {
   }
   // one time only holiday in Berlin
   if (year == 2020) {
-    holidays[
-      '75. Jahrestag der Befreiung vom Nationalsozialismus und der Beendigung des zweiten Weltkrieges in Europa'
-    ] = {
+    holidays['Tag der Befreiung'] = {
       date: moment(`${year}-05-08`),
       state: ['BE'],
     };
   }
 
-  // save holidays for later use
-  allHolidays[year.toString()] = holidays;
+  return holidays;
 };
 
-const calculateEasterDate = (Y: number): moment.Moment => {
-  var C = Math.floor(Y / 100);
-  var N = Y - 19 * Math.floor(Y / 19);
-  var K = Math.floor((C - 17) / 25);
-  var I = C - Math.floor(C / 4) - Math.floor((C - K) / 3) + 19 * N + 15;
+const calculateEasterDate = (Y: number): string => {
+  const C = Math.floor(Y / 100);
+  const N = Y - 19 * Math.floor(Y / 19);
+  const K = Math.floor((C - 17) / 25);
+  let I = C - Math.floor(C / 4) - Math.floor((C - K) / 3) + 19 * N + 15;
   I = I - 30 * Math.floor(I / 30);
-  I =
-    I -
-    Math.floor(I / 28) *
-      (1 -
-        Math.floor(I / 28) *
-          Math.floor(29 / (I + 1)) *
-          Math.floor((21 - N) / 11));
-  var J = Y + Math.floor(Y / 4) + I + 2 - C + Math.floor(C / 4);
+  // prettier-ignore
+  I = I - Math.floor(I / 28) * (1 - Math.floor(I / 28) * Math.floor(29 / (I + 1)) * Math.floor((21 - N) / 11));
+  let J = Y + Math.floor(Y / 4) + I + 2 - C + Math.floor(C / 4);
   J = J - 7 * Math.floor(J / 7);
-  var L = I - J;
-  var M = 3 + Math.floor((L + 40) / 44);
-  var D = L + 28 - 31 * Math.floor(M / 4);
+  const L = I - J;
+  const M = 3 + Math.floor((L + 40) / 44);
+  const D = L + 28 - 31 * Math.floor(M / 4);
 
-  return moment(Y + '-' + padout(M) + '-' + padout(D));
+  return `${Y}-${padout(M)}-${padout(D)}`;
 };
 const padout = (num: number): string => {
   return num < 10 ? `0${num}` : `${num}`;
