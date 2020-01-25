@@ -1,10 +1,6 @@
 name: Build and Test
 
-on:
-  repository_dispatch:
-  release:
-    branches: [master]
-    types: [created]
+on: [push, pull_request, repository_dispatch]
 
 jobs:
   build:
