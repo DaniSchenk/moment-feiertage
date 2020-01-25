@@ -31,7 +31,7 @@ since 2.0.0
 
 Returns an object containing all holidays of a year. Every holiday has a `date` and a `state` property. `date` is holding a moment object representing the holidays date. It's a nationwide holiday, if the `state` value is an empty Array.
 ```javascript
-const codes = moment.getAllStateCodes(2020);
+const codes = moment.getHolidaysByYear(2020);
 /* returns {
   'Neujahrstag': {
     date: moment('2020-01-01'),
