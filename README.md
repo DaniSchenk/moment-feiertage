@@ -2,43 +2,82 @@
 moment-feiertage is a [Moment.js](http://momentjs.com/) plugin to determine if a date is a german holiday. Holidays are taken from [Wikipedia (de)](https://de.wikipedia.org/wiki/Gesetzliche_Feiertage_in_Deutschland). Feel free to contribute!
 
 ## How to use?
-1. Add moment-feiertage to your package.json by running `npm install moment-feiertage --save`
-2. Import moment and moment-feiertage
+1. Add moment-feiertage to your package.json by running `npm install moment-feiertage --save`. Moment.js is a peer dependency, so don't forget to install it, if you haven't already.
+2. Import `moment` form moment-feiertage like you would from the original Moment.js package. moment-feiertage exports the original moment object with extended functionality.
 ```javascript
-// ES6
-import moment from 'moment'
-import 'moment-feiertage'
+// Typescript
+import * as moment from 'moment-feiertage';
 
 // node
-const moment = require('moment');
-const { isHoliday } = require('moment-feiertage');
-````
-3. call `isHoliday()` on any moment object. Check examples for supported arguments and return values
+const moment = require('moment-feiertage');
+```
+3. Check the examples below for functionality, supported arguments and return values.
+- [getAllStateCodes()](##getAllStateCodes())
+- [getHolidaysByYear()](##getHolidaysByYear(year:-number))
+- [isHoliday([]) Array support](##isHoliday(states:-Array[string]))
+- [isHoliday()](##isHoliday(state?:-string))
+- [state codes](##State-codes)
+- [contribute](#Contribute)
 
-## Examples since version 1.1.0
-From version `1.1.0` on `isHoliday()` supports Arrays. Pass an empty Array to test agains all states, or pass an Array of state codes (e.g. `['BY', 'SH']`) to test agains passed states. The return value is an Object:
+## getAllStateCodes()
+since 2.0.0
+```javascript
+const codes = moment.getAllStateCodes();
+/* returns ['BW','BY','BE','BB','HB','HH','HE','MV','NI','NW','RP','SL','SN','ST','SH','TH']*/
+```
+
+## getHolidaysByYear(year: number)
+since 2.0.0
+
+Returns an object containing all holidays of a year. Every holiday has a `date` and a `state` property. `date` is holding a moment object representing the holidays date. It's a nationwide holiday, if the `state` value is an empty Array.
+```javascript
+const codes = moment.getAllStateCodes();
+/* returns {
+  'Neujahrstag': {
+    date: moment('2020-01-01'),
+    state: [] // nationwide holiday
+  },
+  'Heilige Drei Könige': {
+    date: moment('2020-01-06')
+    state: ['BW', 'BY', 'ST'] // only these states celebrate
+  },
+  [ ... ]
+} */
+```
+
+## isHoliday(states: Array[string])
+since 1.1.0
+
+From version `1.1.0` on `isHoliday()` supports Arrays. Pass an empty Array to test against all states, or pass an Array of state codes (e.g. `['BY', 'SH']`). The return value is an Object:
 ```javascript
 {
-  allStates: boolean, // true if holiday in all 16 states (default: false)
-  holidayName: string, // name of holiday (default: '')
-  holidayStates: Array<string>, // states, which celebrate this holiday (default: [])
-  testedStates: Array<string> // tested states default: ['BW','BY','BE','BB','HB','HH','HE','MV','NI','NW','RP','SL','SN','ST','SH','TH']
+  allStates: boolean, // default false
+  holidayName: string, // default: ''
+  holidayStates: Array<string>, // default: []
+  testedStates: Array<string> // default: ...allStates
 }
 ```
 
-Tests Christmas in all states and all states celebrate this holiday:
+- `allStates` is `true`, if the checked date is a nationwide holiday, even if not all states are checked because of the `states` param.
+- `holidayName` contains the name of the holiday
+- `holidayStates` contains the states, where this holiday is celebrated. If `states` param is provided, `holidayStates` contains only a subset of `states`
+- `testedStates` is the same as the `states` param. If `states` param is `[]`, isHoliday will check against all states by default
+
 ```javascript
-const christmasInAllStates = moment('2018-12-25').isHoliday([]);
+const christmasInAllStates = moment('2018-11-01').isHoliday([]);
 /* returns {
   allStates: true,
   holidayName: '1. Weihnachtsfeiertag',
   holidayStates: ...allStates,
   testedStates: ...allStates
 }*/
-```
-
-Tests some holiday in all states but not all states celebrate this holiday:
-```javascript
+const christmasInSomeStates = moment('2018-11-01').isHoliday(['BW', 'SH']);
+/* returns {
+  allStates: true,
+  holidayName: '1. Weihnachtsfeiertag',
+  holidayStates: [ 'BW', 'SH' ],
+  testedStates: [ 'BW', 'SH' ]
+}*/
 const someDateInAllStates = moment('2018-11-01').isHoliday([]);
 /* returns {
   allStates: false,
@@ -46,22 +85,7 @@ const someDateInAllStates = moment('2018-11-01').isHoliday([]);
   holidayStates: [ 'BW', 'BY', 'NW', 'RP', 'SL' ],
   testedStates: ...allStates
 }*/
-```
-
-Tests multiple states for a holiday. This checks if the passed states celebrate this holiday:
-```javascript
-const someDateInSomeStates = moment('2018-11-01').isHoliday(['BW', 'SH', 'TH']);
-/* returns {
-  allStates: false,
-  holidayName: 'Allerheiligen',
-  holidayStates: [ 'BW' ],
-  testedStates: [ 'BW', 'SH', 'TH' ]
-}*/
-```
-
-Tests some date in all states and no state is celebrating this date:
-```javascript
-const someDateInAllStates = moment('2018-12-12').isHoliday([]);
+const noHolidayDateInAllStates = moment('2018-12-12').isHoliday([]);
 /* returns {
   allStates: false,
   holidayName: '',
@@ -70,7 +94,11 @@ const someDateInAllStates = moment('2018-12-12').isHoliday([]);
 }*/
 ```
 
-## Working Examples since version `1.0.0`
+## isHoliday(state?: string)
+since 1.0.0
+
+Since version `1.0.0` `isHoliday()` checks if there's a holiday at a moment object. A state code can be provided optionally.
+
 ```javascript
 const nowIsHoliday = moment().isHoliday();
 // returns name of holiday (string) if date is a holiday
@@ -87,22 +115,30 @@ const isHolidayInBavaria = moment('2017-08-15').isHoliday('BY');
 
 const isHolidayInSaarland = moment('2017-08-15').isHoliday('SL');
 // returns 'Mariä Himmelfahrt' - is a holiday in SL
-
-// state codes:
-// BW = Baden-Württemberg
-// BY = Bayern
-// BE = Berlin
-// BB = Brandenburg
-// HB = Bremen
-// HH = Hamburg
-// HE = Hessen
-// MV = Mecklenburg-Vorpommern
-// NI = Niedersachsen
-// NW = Nordrhein-Westfalen
-// RP = Rheinland-Pfalz
-// SL = Saarland
-// SN = Sachsen
-// ST = Sachsen-Anhalt
-// SH = Schleswig-Holstein
-// TH = Thüringen
 ```
+## State codes
+```
+BW = Baden-Württemberg
+BY = Bayern
+BE = Berlin
+BB = Brandenburg
+HB = Bremen
+HH = Hamburg
+HE = Hessen
+MV = Mecklenburg-Vorpommern
+NI = Niedersachsen
+NW = Nordrhein-Westfalen
+RP = Rheinland-Pfalz
+SL = Saarland
+SN = Sachsen
+ST = Sachsen-Anhalt
+SH = Schleswig-Holstein
+TH = Thüringen
+```
+
+# Contribute
+1. fork
+2. `npm install` and add your desired version of Moment.js: `npm install moment --no-save`
+3. code
+4. `npm run build`: linting, formating, building, testing
+5. PR

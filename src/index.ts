@@ -21,13 +21,12 @@ const allStates: Array<string> = [
 ];
 const allHolidays: YearWithHolidays = {};
 
-declare interface IsHolidayResult {
+interface IsHolidayResult {
   allStates: boolean;
   holidayName: string;
   holidayStates: Array<string>;
   testedStates: Array<string>;
 }
-
 interface Holiday {
   date: moment.Moment;
   state: Array<string>;
@@ -44,9 +43,14 @@ declare module 'moment' {
     isHoliday: (
       _states?: string | Array<string>
     ) => boolean | string | IsHolidayResult;
-    getHolidaysByYear: (_year: number) => Holidays;
   }
+  export function getHolidaysByYear(_year: number): Holidays;
+  export function getAllStateCodes(): Array<string>;
 }
+
+const getAllStateCodes = function(): Array<string> {
+  return allStates;
+};
 
 const isHoliday = function(
   this: moment.Moment,
@@ -86,7 +90,8 @@ const getHolidaysByYear = (_year: number): Holidays => {
 
 // add custom functions to moment
 (moment as any).fn.isHoliday = isHoliday;
-(moment as any).fn.getHolidaysByYear = getHolidaysByYear;
+(moment as any).getHolidaysByYear = getHolidaysByYear;
+(moment as any).getAllStateCodes = getAllStateCodes;
 
 const _isHoliday106 = (
   _moment: moment.Moment,

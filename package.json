@@ -6,9 +6,9 @@
   "types": "build/index.d.ts",
   "homepage": "https://github.com/DaniSchenk/moment-feiertage",
   "scripts": {
-    "build": "npm run lint && npm run format && npx tsc",
-    "format": "npx prettier --write src/**/*.ts",
-    "lint": "npx eslint --fix src/**/*.ts",
+    "build": "npm run lint && npm run format && tsc && npm run test",
+    "format": "prettier --write src/**/*.ts",
+    "lint": "eslint --fix src/**/*.ts",
     "test": "jest"
   },
   "repository": {
