@@ -12,10 +12,10 @@ import * as moment from 'moment-feiertage';
 const moment = require('moment-feiertage');
 ```
 3. Check the examples below for functionality, supported arguments and return values.
-- [getAllStateCodes()](#getAllStateCodes())
-- [getHolidaysByYear()](#getHolidaysByYear(number))
-- [isHoliday() Array support](#isHoliday(Array))
-- [isHoliday()](#isHoliday())
+- getAllStateCodes()
+- getHolidaysByYear()
+- isHoliday() Array support
+- isHoliday()
 - [state codes](#State-codes)
 - [contribute](#Contribute)
 
@@ -26,7 +26,7 @@ const codes = moment.getAllStateCodes();
 /* returns ['BW','BY','BE','BB','HB','HH','HE','MV','NI','NW','RP','SL','SN','ST','SH','TH']*/
 ```
 
-## getHolidaysByYear(number)
+## getHolidaysByYear(year: number)
 since 2.0.0
 
 Returns an object containing all holidays of a year. Every holiday has a `date` and a `state` property. `date` is holding a moment object representing the holidays date. It's a nationwide holiday, if the `state` value is an empty Array.
@@ -45,7 +45,7 @@ const codes = moment.getAllStateCodes(2020);
 } */
 ```
 
-## isHoliday(Array)
+## isHoliday(states: Array<string>)
 since 1.1.0
 
 From version `1.1.0` on `isHoliday()` supports Arrays. Pass an empty Array to test against all states, or pass an Array of state codes (e.g. `['BY', 'SH']`). The return value is an Object:
@@ -94,7 +94,7 @@ const noHolidayDateInAllStates = moment('2018-12-12').isHoliday([]);
 }*/
 ```
 
-## isHoliday()
+## isHoliday(state?: string)
 since 1.0.0
 
 Since version `1.0.0` `isHoliday()` checks if there's a holiday at a moment object. A state code can be provided optionally.
