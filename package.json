@@ -4,11 +4,15 @@
   "description": "Moment.js Plugin for german holidays; check if a given Date is a german holiday",
   "main": "build/index.js",
   "types": "build/index.d.ts",
+  "files": [
+    "build/**/*"
+  ],
   "homepage": "https://github.com/DaniSchenk/moment-feiertage",
   "scripts": {
     "build": "npm run lint && npm run format && tsc && npm run test",
     "format": "prettier --write src/**/*.ts",
     "lint": "eslint --fix src/**/*.ts",
+    "prepare": "npm run build",
     "test": "jest"
   },
   "repository": {
@@ -85,19 +89,5 @@
     "semi": true,
     "singleQuote": true,
     "endOfLine": "lf"
-  },
-  "jest": {
-    "clearMocks": true,
-    "moduleDirectories": [
-      "node_modules",
-      "build"
-    ],
-    "moduleNameMapper": {
-      "^moment-feiertage$": "<rootDir>/build/index.js"
-    },
-    "roots": [
-      "<rootDir>"
-    ],
-    "testEnvironment": "node"
   }
 }
