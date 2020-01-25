@@ -1,4 +1,4 @@
-const moment = require('moment-feiertage');
+const moment = require('../build/index');
 const allStates = moment.getAllStateCodes();
 
 test('non holiday date', () => {
