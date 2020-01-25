@@ -37,7 +37,7 @@
   ],
   "license": "ISC",
   "peerDependencies": {
-    "moment": "2.13.x"
+    "moment": "2.15.x"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^2.17.0",
@@ -46,6 +46,7 @@
     "eslint-config-prettier": "^6.9.0",
     "eslint-plugin-prettier": "^3.1.2",
     "jest": "^25.1.0",
+    "moment": "^2.15.2",
     "prettier": "1.19.1",
     "typescript": "^3.7.4"
   },
