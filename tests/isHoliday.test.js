@@ -1,5 +1,5 @@
-const moment = require('../build/index');
-const allStates = ['BW', 'BY', 'BE', 'BB', 'HB', 'HH', 'HE', 'MV', 'NI', 'NW', 'RP', 'SL', 'SN', 'ST', 'SH', 'TH'];
+const moment = require('moment-feiertage');
+const allStates = moment.getAllStateCodes();
 
 test('non holiday date', () => {
   expect(moment('2017-01-03').isHoliday()).toBe(false);

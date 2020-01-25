@@ -84,5 +84,19 @@
     "semi": true,
     "singleQuote": true,
     "endOfLine": "lf"
+  },
+  "jest": {
+    "clearMocks": true,
+    "moduleDirectories": [
+      "node_modules",
+      "build"
+    ],
+    "moduleNameMapper": {
+      "^moment-feiertage$": "<rootDir>/build/index.js"
+    },
+    "roots": [
+      "<rootDir>"
+    ],
+    "testEnvironment": "node"
   }
 }

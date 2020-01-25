@@ -1,4 +1,4 @@
-const moment = require('../build/index');
+const moment = require('moment-feiertage');
 
 test('getHolidaysByYear 2020', () => {
   const hU = moment.getHolidaysByYear(2020);
