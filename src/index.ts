@@ -107,7 +107,7 @@ const _isHoliday106 = (
     const holidays = allHolidays[_moment.year().toString()];
     for (const h in holidays) {
       // test if moment is holiday
-      if (_moment.isSame(holidays[h].date)) {
+      if (_moment.isSame(holidays[h].date, 'day')) {
         // return name if all states celebrate this holiday
         if (holidays[h].state.length === 0) {
           return h;
