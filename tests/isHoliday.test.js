@@ -151,3 +151,32 @@ test('Ostermontag', () => {
     expect(moment(d).isHoliday()).toBe('Ostermontag');
   }
 });
+
+test('DateTimes', () => {
+  expect(moment('2019-12-26 00:00:00').isHoliday()).toBe('2. Weihnachtsfeiertag');
+  expect(moment('2019-12-26 12:00:00').isHoliday()).toBe('2. Weihnachtsfeiertag');
+  expect(moment('2019-12-26 23:59:59').isHoliday()).toBe('2. Weihnachtsfeiertag');
+
+  expect(moment('2019-12-26 00:00:00').isHoliday([])).toStrictEqual({
+    allStates: true,
+    holidayName: '2. Weihnachtsfeiertag',
+    holidayStates: allStates,
+    testedStates: allStates
+  });
+  expect(moment('2019-12-26 12:00:00').isHoliday([])).toStrictEqual({
+    allStates: true,
+    holidayName: '2. Weihnachtsfeiertag',
+    holidayStates: allStates,
+    testedStates: allStates
+  });
+  expect(moment('2019-12-26 23:59:59').isHoliday([])).toStrictEqual({
+    allStates: true,
+    holidayName: '2. Weihnachtsfeiertag',
+    holidayStates: allStates,
+    testedStates: allStates
+  });
+
+  expect(moment('2019-12-27 00:00:00').isHoliday()).toBe(false);
+  expect(moment('2019-12-27 12:00:00').isHoliday()).toBe(false);
+  expect(moment('2019-12-27 23:59:59').isHoliday()).toBe(false);
+});
