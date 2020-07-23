@@ -48,11 +48,11 @@ declare module 'moment' {
   export function getAllStateCodes(): Array<string>;
 }
 
-const getAllStateCodes = function(): Array<string> {
+const getAllStateCodes = function (): Array<string> {
   return allStates;
 };
 
-const isHoliday = function(
+const isHoliday = function (
   this: moment.Moment,
   _states?: string | Array<string>
 ): boolean | string | IsHolidayResult {
@@ -313,7 +313,7 @@ const padout = (num: number): string => {
   return num < 10 ? `0${num}` : `${num}`;
 };
 
-const calculateBandBDate = function(year: number): moment.Moment {
+const calculateBandBDate = function (year: number): moment.Moment {
   for (let i = 1; i < 8; i++) {
     const day = moment(`${year}-11-23`).subtract(i, 'days');
     if (day.isoWeekday() === 3) {

@@ -44,15 +44,15 @@
     "moment": "2.15.x"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^2.20.0",
-    "@typescript-eslint/parser": "^2.20.0",
-    "eslint": "^6.8.0",
-    "eslint-config-prettier": "^6.10.0",
-    "eslint-plugin-prettier": "^3.1.2",
-    "jest": "^25.1.0",
-    "moment": "^2.15.2",
-    "prettier": "1.19.1",
-    "typescript": "^3.7.4"
+    "@typescript-eslint/eslint-plugin": "^3.7.0",
+    "@typescript-eslint/parser": "^3.7.0",
+    "eslint": "^7.5.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "jest": "^26.1.0",
+    "moment": "^2.27.0",
+    "prettier": "2.0.5",
+    "typescript": "^3.9.7"
   },
   "eslintConfig": {
     "env": {
