@@ -142,8 +142,7 @@ const _isHoliday = (
     result.testedStates = allStates;
   } else {
     // validate state codes from params
-    const validStateCodes = validateStateCodes(_states);
-    result.testedStates = validStateCodes;
+    result.testedStates = validateStateCodes(_states);
   }
 
   // test multiple state codes
