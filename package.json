@@ -1,6 +1,6 @@
 {
   "name": "moment-feiertage",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "Moment.js Plugin for german holidays; check if a given Date is a german holiday",
   "main": "build/index.js",
   "types": "build/index.d.ts",
