@@ -3,7 +3,7 @@ moment-feiertage is a [Moment.js](http://momentjs.com/) plugin to determine if a
 
 ## How to use?
 1. Add moment-feiertage to your package.json by running `npm install moment-feiertage --save`. Moment.js is a peer dependency, so don't forget to install it, if you haven't already.
-2. Import `moment` form moment-feiertage like you would from the original Moment.js package. moment-feiertage exports the original moment object with extended functionality.
+2. Import `moment` from moment-feiertage like you would from the original Moment.js package. moment-feiertage exports the original moment object with extended functionality.
 ```javascript
 // Typescript
 import * as moment from 'moment-feiertage';

@@ -1,6 +1,16 @@
 const moment = require('../build/index');
 const allStates = moment.getAllStateCodes();
 
+test('current date', () => {
+  try {
+    moment().isHoliday();
+    moment().isHoliday([]);
+  }
+  catch(e) {
+    fail();
+  }
+});
+
 test('non holiday date', () => {
   expect(moment('2017-01-03').isHoliday()).toBe(false);
   expect(moment('2017-01-03').isHoliday([])).toStrictEqual({

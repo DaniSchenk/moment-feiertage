@@ -105,7 +105,7 @@ const _isHoliday106 = (
     allHolidays[_moment.year().toString()]
   ) {
     const holidays = allHolidays[_moment.year().toString()];
-    for (const h in holidays) {
+    for (const h of Object.keys(holidays)) {
       // test if moment is holiday
       if (_moment.isSame(holidays[h].date, 'day')) {
         // return name if all states celebrate this holiday
@@ -142,8 +142,7 @@ const _isHoliday = (
     result.testedStates = allStates;
   } else {
     // validate state codes from params
-    const validStateCodes = validateStateCodes(_states);
-    result.testedStates = validStateCodes;
+    result.testedStates = validateStateCodes(_states);
   }
 
   // test multiple state codes
