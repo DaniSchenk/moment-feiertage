@@ -136,6 +136,9 @@ SH = Schleswig-Holstein
 TH = Thüringen
 ```
 
+### Mappings
+- Google Places Api: https://github.com/DaniSchenk/moment-feiertage/issues/17#issuecomment-780445461 provided by (@t-wark)[https://github.com/t-wark]
+
 # Contribute
 1. fork
 2. `npm install` and add your desired version of Moment.js: `npm install moment --no-save`
