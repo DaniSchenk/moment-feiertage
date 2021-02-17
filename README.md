@@ -137,7 +137,7 @@ TH = Thüringen
 ```
 
 ### Mappings
-- Google Places Api: https://github.com/DaniSchenk/moment-feiertage/issues/17#issuecomment-780445461 provided by (@t-wark)[https://github.com/t-wark]
+- Google Places Api: https://github.com/DaniSchenk/moment-feiertage/issues/17#issuecomment-780445461 provided by [@t-wark9](https://github.com/t-wark)
 
 # Contribute
 1. fork
