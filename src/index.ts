@@ -276,6 +276,11 @@ const calculateHolidays = (year: number): Holidays => {
       date: moment(`${year}-03-08`),
       state: ['BE'],
     };
+
+    if (+year > 2022) {
+      holidays['Internationaler Frauentag'].state.push('MV');
+    }
+
     holidays['Weltkindertag'] = {
       date: moment(`${year}-09-20`),
       state: ['TH'],

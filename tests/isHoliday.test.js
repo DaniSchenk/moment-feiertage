@@ -92,6 +92,31 @@ test('Reformationstag', () => {
   }
 });
 
+test('Internationaler Frauentag', () => {
+  expect(moment('2018-03-08').isHoliday()).toBe(false);
+  expect(moment('2019-03-08').isHoliday()).toBe(false);
+  expect(moment('2023-03-08').isHoliday()).toBe(false);
+
+  expect(moment('2018-03-08').isHoliday([])).toStrictEqual({
+    allStates: false,
+    holidayName: '',
+    holidayStates: [],
+    testedStates: allStates,
+  });
+  expect(moment('2019-03-08').isHoliday([])).toStrictEqual({
+    allStates: false,
+    holidayName: 'Internationaler Frauentag',
+    holidayStates: ['BE'],
+    testedStates: allStates,
+  });
+  expect(moment('2023-03-08').isHoliday([])).toStrictEqual({
+    allStates: false,
+    holidayName: 'Internationaler Frauentag',
+    holidayStates: ['BE', 'MV'],
+    testedStates: allStates,
+  });
+});
+
 test('return objects', () => {
   expect(moment('2020-10-03').isHoliday([])).toStrictEqual({
     allStates: true,
